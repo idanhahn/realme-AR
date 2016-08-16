@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+def VUFORIA_SDK_DIR = '../vuforia-sdk-android-6-0-112'
+def NATIVE_LIB_DIR = 'build/lib'
+def JAR_DIR = 'build/java/vuforia'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir "$VUFORIA_SDK_DIR/$NATIVE_LIB_DIR/"
+    }   
+
+    defaultConfig {
+        applicationId "com.realme_demo.realmeapp"
+        minSdkVersion 8
+        targetSdkVersion 22
+        versionCode 600
+        versionName "6.0"
+    }
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilter "armeabi-v7a"
+                // TODO:
+                // add support for additional devices
+            }
+        }
+    
+
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile files("$VUFORIA_SDK_DIR/$JAR_DIR/Vuforia.jar")
+}
