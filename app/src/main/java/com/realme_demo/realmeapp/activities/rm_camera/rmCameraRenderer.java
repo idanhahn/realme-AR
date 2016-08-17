@@ -7,7 +7,7 @@ Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
 
-package com.realme_demo.realmeapp.vu.ImageTarget;
+package com.realme_demo.realmeapp.activities.rm_camera;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -15,7 +15,6 @@ import java.util.Vector;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -39,14 +38,14 @@ import com.vuforia.TrackableResult;
 import com.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.vuforia.Vuforia;
 
-// The renderer class for the ImageTargets sample. 
-public class ImageTargetRenderer implements GLSurfaceView.Renderer, SampleAppRendererControl
+// The renderer class for the RmCamera sample.
+public class rmCameraRenderer implements GLSurfaceView.Renderer, AppRendererControl
 {
-    private static final String LOGTAG = "ImageTargetRenderer";
+    private static final String LOGTAG = "rmCameraRenderer";
     
     private VuSession vuforiaAppSession;
-    private ImageTargets mActivity;
-    private SampleAppRenderer mSampleAppRenderer;
+    private RmCamera mActivity;
+    private appRenderer mSampleAppRenderer;
 
     private Vector<Texture> mTextures;
     
@@ -73,13 +72,13 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer, SampleAppRen
     private static final float OBJECT_SCALE_FLOAT = 3.0f;
     
     
-    public ImageTargetRenderer(ImageTargets activity, VuSession session)
+    public rmCameraRenderer(RmCamera activity, VuSession session)
     {
         mActivity = activity;
         vuforiaAppSession = session;
-        // SampleAppRenderer used to encapsulate the use of RenderingPrimitives setting
+        // appRenderer used to encapsulate the use of RenderingPrimitives setting
         // the device mode AR/VR and stereo mode
-        mSampleAppRenderer = new SampleAppRenderer(this, Device.MODE.MODE_AR, false);
+        mSampleAppRenderer = new appRenderer(this, Device.MODE.MODE_AR, false);
 
         //
         mTVCameraOverlay = (TextView) mActivity.findViewById(R.id.camera_overlay_fa_low_vision);
@@ -94,7 +93,7 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer, SampleAppRen
         if (!mIsActive)
             return;
         
-        // Call our function to render content from SampleAppRenderer class
+        // Call our function to render content from appRenderer class
         mSampleAppRenderer.render();
     }
     
@@ -188,7 +187,7 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer, SampleAppRen
     }
 
     // The render function called from SampleAppRendering by using RenderingPrimitives views.
-    // The state is owned by SampleAppRenderer which is controlling it's lifecycle.
+    // The state is owned by appRenderer which is controlling it's lifecycle.
     // State should not be cached outside this method.
     public void renderFrame(State state, float[] projectionMatrix)
     {

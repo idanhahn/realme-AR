@@ -1,12 +1,11 @@
-package com.realme_demo.realmeapp;
+package com.realme_demo.realmeapp.activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.realme_demo.realmeapp.vu.ImageTarget.ImageTargets;
+import com.realme_demo.realmeapp.R;
+import com.realme_demo.realmeapp.activities.rm_camera.RmCamera;
 
 
 // Gate way for all other activities
@@ -21,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Intent intent = new Intent(this, VuMark.class);
-        Intent intent = new Intent(this, ImageTargets.class);
-
+        Intent intent = new Intent(this, RmCamera.class);
         startActivity(intent);
 
     }

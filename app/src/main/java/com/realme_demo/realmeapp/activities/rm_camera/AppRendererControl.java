@@ -7,11 +7,11 @@ Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
 
-package com.realme_demo.realmeapp.vu.ImageTarget;
+package com.realme_demo.realmeapp.activities.rm_camera;
 
 import com.vuforia.State;
 
-public interface SampleAppRendererControl {
+public interface AppRendererControl {
 
     // This method has to be implemented by the Renderer class which handles the content rendering
     // of the sample, this one is called from SampleAppRendering class for each view inside a loop

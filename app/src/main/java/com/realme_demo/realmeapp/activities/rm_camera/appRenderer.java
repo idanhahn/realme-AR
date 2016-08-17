@@ -7,7 +7,7 @@ Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
 
-package com.realme_demo.realmeapp.vu.ImageTarget;
+package com.realme_demo.realmeapp.activities.rm_camera;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -31,12 +31,12 @@ import com.vuforia.Vec2F;
 import com.vuforia.Vec4I;
 import com.vuforia.ViewList;
 
-public class SampleAppRenderer {
+public class appRenderer {
 
-    private static final String LOGTAG = "SampleAppRenderer";
+    private static final String LOGTAG = "appRenderer";
 
     private RenderingPrimitives mRenderingPrimitives;
-    private SampleAppRendererControl mRenderingInterface;
+    private AppRendererControl mRenderingInterface;
 
     private Renderer mRenderer;
     private int currentView = VIEW.VIEW_SINGULAR;
@@ -54,7 +54,7 @@ public class SampleAppRenderer {
     private int vbTexCoordHandle          = 0;
     private int vbProjectionMatrixHandle;
 
-    SampleAppRenderer(SampleAppRendererControl renderingInterface, int deviceMode, boolean stereo)
+    appRenderer(AppRendererControl renderingInterface, int deviceMode, boolean stereo)
     {
         mRenderingInterface = renderingInterface;
         mRenderer = Renderer.getInstance();

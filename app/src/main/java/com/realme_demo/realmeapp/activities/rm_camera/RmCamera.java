@@ -8,7 +8,7 @@ Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
 
-package com.realme_demo.realmeapp.vu.ImageTarget;
+package com.realme_demo.realmeapp.activities.rm_camera;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -20,8 +20,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,7 +42,6 @@ import com.realme_demo.realmeapp.vu.utils.SampleApplicationGLView;
 import com.realme_demo.realmeapp.vu.utils.Texture;
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
-import com.vuforia.Device;
 import com.vuforia.ObjectTracker;
 import com.vuforia.State;
 import com.vuforia.STORAGE_TYPE;
@@ -53,7 +50,7 @@ import com.vuforia.Tracker;
 import com.vuforia.TrackerManager;
 import com.vuforia.Vuforia;
 
-public class ImageTargets extends Activity implements VuControl
+public class RmCamera extends Activity implements VuControl
 {
     private static final String LOGTAG = "ImageTargets";
     
@@ -69,7 +66,7 @@ public class ImageTargets extends Activity implements VuControl
     private SampleApplicationGLView mGlView;
     
     // Our renderer:
-    private ImageTargetRenderer mRenderer;
+    private rmCameraRenderer mRenderer;
     
     private GestureDetector mGestureDetector;
     
@@ -288,7 +285,7 @@ public class ImageTargets extends Activity implements VuControl
         mGlView = new SampleApplicationGLView(this);
         mGlView.init(translucent, depthSize, stencilSize);
 
-        mRenderer = new ImageTargetRenderer(this, vuforiaAppSession);
+        mRenderer = new rmCameraRenderer(this, vuforiaAppSession);
         mRenderer.setTextures(mTextures);
         mGlView.setRenderer(mRenderer);
     }
@@ -451,7 +448,7 @@ public class ImageTargets extends Activity implements VuControl
                 
                 // Generates an Alert Dialog to show the error message
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                    ImageTargets.this);
+                    RmCamera.this);
                 builder
                     .setMessage(errorMessage)
                     .setTitle(getString(R.string.INIT_ERROR))
