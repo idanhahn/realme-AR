@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_menu"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:src="@drawable/logo_temp"
+            />
+        <Button
+            android:id="@+id/menu_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/DarkGoldenrod"
+            android:text="@string/log_in"
+            android:layout_marginBottom="2dp"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/menu_signup"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/ForestGreen"
+            android:text="@string/sign_up"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/menu_accessorize"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/MediumPurple"
+            android:text="@string/accessorize"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="20dp"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

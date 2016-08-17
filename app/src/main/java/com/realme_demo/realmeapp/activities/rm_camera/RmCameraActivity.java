@@ -40,7 +40,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.realme_demo.realmeapp.R;
+import com.realme_demo.realmeapp.activities.rm_menu.RmMenuActivity;
 import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
+import com.realme_demo.realmeapp.fontAwesome.DrawableAwesome;
 import com.realme_demo.realmeapp.vu.VuControl;
 import com.realme_demo.realmeapp.vu.VuException;
 import com.realme_demo.realmeapp.vu.VuSession;
@@ -103,6 +105,8 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
     private FloatingActionButton mBtnCamera;
     private FloatingActionButton mBtnVideo;
 
+    // realMe menu
+    private Button mBtnMenu;
 
     
     // Called when the activity first starts or the user navigates back to an
@@ -135,8 +139,8 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
 
         mLLrealMe = (LinearLayout) findViewById(R.id.camera_overlay_found_toolbar);
 
-
         mBtnShop = (FloatingActionButton) findViewById(R.id.camera_overlay_found_shop);
+        mBtnShop.setImageDrawable(new DrawableAwesome.DrawableAwesomeBuilder(this, R.string.fa_shopping_cart).build());
         mBtnShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,14 +149,57 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
                 Intent intent = new Intent(RmCameraActivity.this, RmShopActivity.class);
                 RmCameraActivity.this.startActivity(intent);
 
+            }
+        });
+
+        mBtnHeart = (FloatingActionButton)findViewById(R.id.camera_overlay_found_heart);
+        mBtnHeart.setImageDrawable(new DrawableAwesome.DrawableAwesomeBuilder(this, R.string.fa_heart).build());
+        mBtnHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(LOGTAG,"click like");
 
             }
         });
-        mBtnHeart = (FloatingActionButton)findViewById(R.id.camera_overlay_found_heart);
+
 
         mBtnCamera = (FloatingActionButton) findViewById(R.id.camera_overlay_found_camera);
+        mBtnCamera.setImageDrawable(new DrawableAwesome.DrawableAwesomeBuilder(this, R.string.fa_camera).build());
+        mBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(LOGTAG,"click camera");
+
+            }
+        });
 
         mBtnVideo = (FloatingActionButton) findViewById(R.id.camera_overlay_found_video);
+        mBtnVideo.setImageDrawable(new DrawableAwesome.DrawableAwesomeBuilder(this, R.string.fa_video_camera).build());
+        mBtnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(LOGTAG,"click video");
+
+            }
+        });
+
+
+        mBtnMenu = (Button) findViewById(R.id.camera_overlay_menu);
+        mBtnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(LOGTAG,"click menu");
+                Intent intent = new Intent(RmCameraActivity.this, RmMenuActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
 
     }
     

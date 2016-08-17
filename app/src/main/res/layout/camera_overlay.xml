@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.realme_demo.realmeapp.fontAwesome.ButtonAwesome
+        android:id="@+id/camera_overlay_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:textSize="30dp"
+        android:textColor="@color/LightGrey"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/fa_bars"/>
+    
 
     <LinearLayout
         android:layout_width="match_parent"
