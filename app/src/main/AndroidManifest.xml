@@ -33,7 +33,8 @@
         </activity>
 
         <activity android:name=".vu.VuMark.VuMark" android:parentActivityName=".activities.MainActivity"/>
-        <activity android:name=".activities.rm_camera.RmCamera" android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.rm_camera.RmCameraActivity" android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.rm_shop.RmShopActivity" android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import java.util.Vector;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -23,18 +24,23 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.realme_demo.realmeapp.R;
+import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
 import com.realme_demo.realmeapp.vu.VuControl;
 import com.realme_demo.realmeapp.vu.VuException;
 import com.realme_demo.realmeapp.vu.VuSession;
@@ -50,7 +56,7 @@ import com.vuforia.Tracker;
 import com.vuforia.TrackerManager;
 import com.vuforia.Vuforia;
 
-public class RmCamera extends Activity implements VuControl
+public class RmCameraActivity extends AppCompatActivity implements VuControl
 {
     private static final String LOGTAG = "ImageTargets";
     
@@ -66,7 +72,7 @@ public class RmCamera extends Activity implements VuControl
     private SampleApplicationGLView mGlView;
     
     // Our renderer:
-    private rmCameraRenderer mRenderer;
+    private RmCameraRenderer mRenderer;
     
     private GestureDetector mGestureDetector;
     
@@ -87,7 +93,17 @@ public class RmCamera extends Activity implements VuControl
     
     boolean mIsDroidDevice = false;
 
-    private TextView fa_camera_overlay_low_vision;
+    // button for additional information when shirt is found
+    private Button mBtnEye;
+
+    // realMe toolBar
+    private LinearLayout mLLrealMe;
+    private FloatingActionButton mBtnShop;
+    private FloatingActionButton mBtnHeart;
+    private FloatingActionButton mBtnCamera;
+    private FloatingActionButton mBtnVideo;
+
+
     
     // Called when the activity first starts or the user navigates back to an
     // activity.
@@ -116,7 +132,28 @@ public class RmCamera extends Activity implements VuControl
         
         mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
             "droid");
-        
+
+        mLLrealMe = (LinearLayout) findViewById(R.id.camera_overlay_found_toolbar);
+
+
+        mBtnShop = (FloatingActionButton) findViewById(R.id.camera_overlay_found_shop);
+        mBtnShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // shop activity
+                Intent intent = new Intent(RmCameraActivity.this, RmShopActivity.class);
+                RmCameraActivity.this.startActivity(intent);
+
+
+            }
+        });
+        mBtnHeart = (FloatingActionButton)findViewById(R.id.camera_overlay_found_heart);
+
+        mBtnCamera = (FloatingActionButton) findViewById(R.id.camera_overlay_found_camera);
+
+        mBtnVideo = (FloatingActionButton) findViewById(R.id.camera_overlay_found_video);
+
     }
     
     // Process Single Tap event to trigger autofocus
@@ -285,7 +322,7 @@ public class RmCamera extends Activity implements VuControl
         mGlView = new SampleApplicationGLView(this);
         mGlView.init(translucent, depthSize, stencilSize);
 
-        mRenderer = new rmCameraRenderer(this, vuforiaAppSession);
+        mRenderer = new RmCameraRenderer(this, vuforiaAppSession);
         mRenderer.setTextures(mTextures);
         mGlView.setRenderer(mRenderer);
     }
@@ -293,6 +330,7 @@ public class RmCamera extends Activity implements VuControl
     
     private void startLoadingAnimation()
     {
+
         mUILayout = (RelativeLayout) View.inflate(this, R.layout.camera_overlay,
             null);
         
@@ -305,8 +343,19 @@ public class RmCamera extends Activity implements VuControl
 
         // font awesome support
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
-        fa_camera_overlay_low_vision = (TextView) findViewById(R.id.camera_overlay_fa_low_vision);
-        fa_camera_overlay_low_vision.setTypeface(fontAwesomeFont);
+        mBtnEye = (Button) findViewById(R.id.camera_overlay_eye);
+        mBtnEye.setTypeface(fontAwesomeFont);
+
+        mBtnEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(LOGTAG,"Click");
+                if (mLLrealMe.getVisibility() == View.VISIBLE)
+                    mLLrealMe.setVisibility(View.INVISIBLE);
+                else
+                    mLLrealMe.setVisibility(View.VISIBLE);
+            }
+        });
 
 
 
@@ -448,7 +497,7 @@ public class RmCamera extends Activity implements VuControl
                 
                 // Generates an Alert Dialog to show the error message
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                    RmCamera.this);
+                    RmCameraActivity.this);
                 builder
                     .setMessage(errorMessage)
                     .setTitle(getString(R.string.INIT_ERROR))
@@ -492,10 +541,12 @@ public class RmCamera extends Activity implements VuControl
         }
         if ( state.getNumTrackableResults() > 0 ){
             Log.d(LOGTAG,"Found trackable");
-            fa_camera_overlay_low_vision.setText(getResources().getString(R.string.fa_eye));
+            mBtnEye.setText(getResources().getString(R.string.fa_eye));
+            mBtnEye.setEnabled(true);
         } else {
             Log.d(LOGTAG,"No trackable");
-            fa_camera_overlay_low_vision.setText(getResources().getString(R.string.fa_low_vision));
+            mBtnEye.setText(getResources().getString(R.string.fa_low_vision));
+            mBtnEye.setEnabled(false);
         }
     }
     

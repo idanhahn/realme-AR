@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Bisque"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/accesorize"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_temp"
+            />
+
+
+    </LinearLayout>
+
+    <ListView android:id="@+id/shop_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00FF00"
+        android:drawSelectorOnTop="false"/>
+</LinearLayout>

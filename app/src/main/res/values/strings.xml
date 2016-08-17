@@ -68,7 +68,8 @@
     <!-- Font awesome -->
     <string name="fa_low_vision">&#xf2a8;</string>
     <string name="fa_eye">&#xf06e;</string>
-
+    <string name="accesorize">ACCESORIZE!</string>
+    <string name="price_9_98_22_98">Price: $9.98 - $22.98</string>
 
 
 </resources>

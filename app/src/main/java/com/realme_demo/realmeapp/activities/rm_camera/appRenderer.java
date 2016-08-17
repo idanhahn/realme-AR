@@ -31,9 +31,9 @@ import com.vuforia.Vec2F;
 import com.vuforia.Vec4I;
 import com.vuforia.ViewList;
 
-public class appRenderer {
+public class AppRenderer {
 
-    private static final String LOGTAG = "appRenderer";
+    private static final String LOGTAG = "AppRenderer";
 
     private RenderingPrimitives mRenderingPrimitives;
     private AppRendererControl mRenderingInterface;
@@ -54,7 +54,7 @@ public class appRenderer {
     private int vbTexCoordHandle          = 0;
     private int vbProjectionMatrixHandle;
 
-    appRenderer(AppRendererControl renderingInterface, int deviceMode, boolean stereo)
+    AppRenderer(AppRendererControl renderingInterface, int deviceMode, boolean stereo)
     {
         mRenderingInterface = renderingInterface;
         mRenderer = Renderer.getInstance();
