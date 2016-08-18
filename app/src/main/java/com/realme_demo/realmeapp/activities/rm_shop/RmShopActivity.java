@@ -27,7 +27,6 @@ public class RmShopActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_shop);
 
         // setting list items
@@ -37,26 +36,24 @@ public class RmShopActivity extends AppCompatActivity {
         mShopList.add(new ShopItem("Shirt3","Type3","Price3","stars4","shirt3"));
         mShopList.add(new ShopItem("Shirt4","Type4","Price4","stars5","shirt4"));
 
-        setContentView(R.layout.activity_shop);
         ShopItemAdapter adapter = new ShopItemAdapter(this, (ArrayList<ShopItem>) this.mShopList);
         ListView shopList = (ListView) findViewById(R.id.shop_list);
         shopList.setAdapter(adapter);
 
     }
 
-
     private class ShopItem{
         String title;
-        String stars;
         String type;
         String price;
+        String rating;
         String img;
 
-        public ShopItem(String title, String stars, String type, String price, String img) {
+        public ShopItem(String title, String type, String price,String rating, String img) {
             this.title = title;
-            this.stars = stars;
             this.type = type;
             this.price = price;
+            this.rating = rating;
             this.img = img;
         }
     }
@@ -65,24 +62,12 @@ public class RmShopActivity extends AppCompatActivity {
     private class ShopItemAdapter extends ArrayAdapter<ShopItem> {
 
 
-        //private LayoutInflater inflater;
-
-        //private int resource;
-
         private ArrayList<ShopItem> data;
 
         public ShopItemAdapter(Context context, ArrayList<ShopItem> data) {
             super(context, 0, data);
             this.data = data;
         }
-/*
-        public ShopItemAdapter(Context context, int resource, ArrayList<ShopItem> data){
-            super(context, resource, data);
-            this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.resource = resource;
-            this.data = data;
-        }
-*/
 
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
@@ -90,7 +75,6 @@ public class RmShopActivity extends AppCompatActivity {
             View view;
 
             if (convertView == null){
-                //view = this.inflater.inflate(resource,parent,false);
                 view = LayoutInflater.from(getContext()).inflate(R.layout.shop_item, parent, false);
             } else {
                 view = convertView;
@@ -113,6 +97,9 @@ public class RmShopActivity extends AppCompatActivity {
 
             TextView type = (TextView) view.findViewById(R.id.shop_item_type);
             type.setText(item.type);
+
+            ImageView rating = (ImageView) view.findViewById(R.id.shop_item_rating);
+            rating.setImageResource(view.getContext().getResources().getIdentifier("drawable/"+ item.rating,null,view.getContext().getPackageName()));
 
             TextView price = (TextView) view.findViewById(R.id.shop_item_price);
             price.setText(item.price);
