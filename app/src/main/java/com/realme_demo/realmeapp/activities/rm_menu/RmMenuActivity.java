@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.realme_demo.realmeapp.R;
-import com.realme_demo.realmeapp.activities.rm_registration.RmLoginActivity;
+import com.realme_demo.realmeapp.activities.rm_registration.RmAccountActivity;
 import com.realme_demo.realmeapp.activities.rm_registration.RmSignupActivity;
 import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
 
@@ -27,12 +27,12 @@ public class RmMenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        mBtnLogin = (Button) findViewById(R.id.menu_login);
+        mBtnLogin = (Button) findViewById(R.id.menu_account);
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(RmMenuActivity.this, RmLoginActivity.class);
+                Intent intent = new Intent(RmMenuActivity.this, RmAccountActivity.class);
                 startActivity(intent);
 
             }

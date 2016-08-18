@@ -17,45 +17,61 @@ public class RmUser {
 
     private RmUser() {
         mUserSet = false;
+        likeCount = 0;
+        cameraCount = 0;
+        videoCount = 0;
     }
 
 
     private Boolean mUserSet;
     private String mUserName;
     private String mPassword;
-    private Bitmap selfie;
+    private Bitmap mSelfie;
+
+    private int likeCount;
+    private int cameraCount;
+    private int videoCount;
+    private float ratingCount;
+
+
 
     public void setUser(){
         mUserSet = true;
     }
 
 
-    public String getmUserName() {
+    public String getUserName() {
         return mUserName;
     }
 
-    public void setmUserName(String mUserName) {
+    public void setUserName(String mUserName) {
         this.mUserName = mUserName;
     }
 
-    public String getmPassword() {
+    public String getPassword() {
         return mPassword;
     }
 
-    public void setmPassword(String mPassword) {
+    public void setPassword(String mPassword) {
         this.mPassword = mPassword;
     }
 
     public Bitmap getSelfie() {
-        return selfie;
+        return mSelfie;
     }
 
     public void setSelfie(Bitmap selfie) {
-        this.selfie = selfie;
+        this.mSelfie = selfie;
     }
 
     public Boolean getUserSet(){
         return this.mUserSet;
     }
+
+    public void addLike(){ this.likeCount++; }
+    public void addCamera(){ this.cameraCount++; }
+    public void addVideo(){ this.videoCount++; }
+
+
 
 }

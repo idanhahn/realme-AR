@@ -79,21 +79,33 @@
             android:id="@+id/signup_approve"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:orientation="horizontal"
-            android:visibility="invisible"
+            android:visibility="visible"
             >
-            <Button
+            <com.realme_demo.realmeapp.fontAwesome.ButtonAwesome
                 android:id="@+id/signup_approve_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="@string/fa_thumbs_o_down"
+                android:background="@color/DarkRed"
+                android:textColor="@color/AntiqueWhite"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="24dp"
                 />
-            <Button
+            <com.realme_demo.realmeapp.fontAwesome.ButtonAwesome
                 android:id="@+id/signup_approve_yes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="@string/fa_thumbs_o_up"
+                android:background="@color/DarkGreen"
+                android:textColor="@color/AntiqueWhite"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="24dp"
                 />
 
         </LinearLayout>

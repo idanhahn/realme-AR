@@ -625,4 +625,7 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="sign_up_with_shirt">Sign Up with shirt</string>
+    <string name="ACCOUNT">ACCOUNT</string>
+    <string name="temp">TEMP</string>
+    <string name="stylify">STYLIFY!</string>
 </resources>

@@ -3,6 +3,7 @@ package com.realme_demo.realmeapp.activities.rm_registration;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.realme_demo.realmeapp.R;
 import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
+import com.realme_demo.realmeapp.data.RmUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +36,8 @@ public class RmSignupActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPUTRE = 1;
 
     private final static String LOGTAG = "Signup Activity";
+
+    private RmUser user = RmUser.getInstance();
 
     private TextView mUserName;
     private TextView mPassword;
@@ -77,6 +81,21 @@ public class RmSignupActivity extends AppCompatActivity {
         mLlApprove = (LinearLayout) findViewById(R.id.signup_approve);
 
         mBtnApprove = (Button) findViewById(R.id.signup_approve_yes);
+        mBtnApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // setting user
+                user.setUserName(mUserName.getText().toString());
+                user.setPassword(mPassword.getText().toString());
+                user.setSelfie( ((BitmapDrawable)mSelfieImg.getDrawable()).getBitmap() );
+                user.setUser();
+                Intent intent = new Intent(RmSignupActivity.this, RmAccountActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
 

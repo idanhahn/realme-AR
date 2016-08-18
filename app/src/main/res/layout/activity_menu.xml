@@ -17,12 +17,13 @@
             android:src="@drawable/logo_temp"
             />
         <Button
-            android:id="@+id/menu_login"
+            android:id="@+id/menu_account"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:background="@color/DarkGoldenrod"
-            android:text="@string/log_in"
+            android:background="@color/Gray"
+            android:alpha="0.7"
+            android:text="@string/ACCOUNT"
             android:layout_marginBottom="2dp"
             android:textSize="20dp"/>
         <Button
@@ -45,7 +46,6 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="20dp"
             android:textSize="20dp"/>
-
 
     </LinearLayout>
 

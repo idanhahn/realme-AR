@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:id="@+id/stylify_item_img"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/stylify_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/temp"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/stylify_item_designer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/temp"
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:gravity="center_vertical"
+            />
+        <ImageView
+            android:id="@+id/stylify_item_rating"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:maxHeight="30dp"
+            android:maxWidth="80dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/stars4"
+            />
+
+    </LinearLayout>
+
+    <com.realme_demo.realmeapp.fontAwesome.TextAwesome
+        android:id="@+id/stylify_item_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:text="@string/fa_check"
+        android:gravity="center"
+        android:textColor="@color/DarkGreen"
+        android:textSize="20dp"
+        android:textStyle="bold"
+    />
+
+
+</LinearLayout>
