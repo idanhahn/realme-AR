@@ -193,6 +193,9 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
             public void onClick(View view) {
 
                 Log.d(LOGTAG,"click menu");
+
+
+
                 Intent intent = new Intent(RmCameraActivity.this, RmMenuActivity.class);
                 startActivity(intent);
 

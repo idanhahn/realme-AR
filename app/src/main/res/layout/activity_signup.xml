@@ -12,55 +12,94 @@
         android:paddingRight="24dp"
         android:paddingTop="56dp">
 
-        <ImageView android:src="@drawable/logo_temp"
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo_temp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/AntiqueWhite"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:textColorHint="@color/AntiqueWhite">
+
             <EditText
                 android:id="@+id/signup_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="@string/username"/>
+                android:hint="@string/username"
+                android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/AntiqueWhite"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:textColorHint="@color/AntiqueWhite">
+
             <EditText
                 android:id="@+id/signup_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/AntiqueWhite"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:hint="@string/password"/>
+                android:textColor="@color/AntiqueWhite" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/signup_button"
+        <Button
+            android:id="@+id/signup_shirt_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/DarkKhaki"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:layout_marginTop="12dp"
-            android:text="@string/sign_up" />
+            android:background="@color/Crimson"
+            android:text="@string/sign_up_with_shirt" />
 
-    <Button style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/signup_shirt_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/Crimson"
-        android:layout_marginTop="12dp"
-        android:text="@string/sign_up_with_shirt" />
+        <ImageView
+            android:id="@+id/signup_selfie_img"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_margin="20dp"
+            android:visibility="invisible"
+            android:src="@drawable/shirt2"
+            android:minWidth="200dp"
+            android:minHeight="200dp"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/signup_approve"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:visibility="invisible"
+            >
+            <Button
+                android:id="@+id/signup_approve_no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/signup_approve_yes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+
+
 
     </LinearLayout>
 </LinearLayout>

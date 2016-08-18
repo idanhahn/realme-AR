@@ -27,7 +27,6 @@ public class RmMenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-
         mBtnLogin = (Button) findViewById(R.id.menu_login);
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
