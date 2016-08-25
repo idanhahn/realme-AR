@@ -9,24 +9,16 @@ countries.
 
 package com.realme_demo.realmeapp.activities.rm_camera;
 
-import java.io.IOException;
-import java.util.Vector;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.realme_demo.realmeapp.R;
 import com.realme_demo.realmeapp.vu.VuSession;
+import com.realme_demo.realmeapp.vu.models.Application3DModel;
+import com.realme_demo.realmeapp.vu.models.Obj3D;
 import com.realme_demo.realmeapp.vu.utils.CubeShaders;
-import com.realme_demo.realmeapp.vu.utils.SampleApplication3DModel;
 import com.realme_demo.realmeapp.vu.utils.SampleUtils;
-import com.realme_demo.realmeapp.vu.models.Teapot;
 import com.realme_demo.realmeapp.vu.utils.Texture;
 import com.vuforia.Device;
 import com.vuforia.Matrix44F;
@@ -38,6 +30,12 @@ import com.vuforia.TrackableResult;
 import com.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.vuforia.Vuforia;
 
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 // The renderer class for the RmCameraActivity sample.
 public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererControl
 {
@@ -45,7 +43,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
     
     private VuSession vuforiaAppSession;
     private RmCameraActivity mActivity;
-    private AppRenderer mSampleAppRenderer;
+    private AppRenderer mAppRenderer;
 
     private Vector<Texture> mTextures;
     
@@ -55,25 +53,23 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
     private int mvpMatrixHandle;
     private int texSampler2DHandle;
     
-    private Teapot mTeapot;
-    
+    private Obj3D mObject3D;
+
     private float kBuildingScale = 12.0f;
-    private SampleApplication3DModel mBuildingsModel;
+    private Application3DModel mBuildingsModel;
 
     boolean mIsActive = false;
     boolean mModelsLoaded = false;
 
+    private static float OBJECT_SCALE_FLOAT = 5f;
 
-    private static final float OBJECT_SCALE_FLOAT = 3.0f;
-    
-    
     public RmCameraRenderer(RmCameraActivity activity, VuSession session)
     {
         mActivity = activity;
         vuforiaAppSession = session;
         // AppRenderer used to encapsulate the use of RenderingPrimitives setting
         // the device mode AR/VR and stereo mode
-        mSampleAppRenderer = new AppRenderer(this, Device.MODE.MODE_AR, false);
+        mAppRenderer = new AppRenderer(this, Device.MODE.MODE_AR, false);
     }
     
     
@@ -85,7 +81,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             return;
         
         // Call our function to render content from AppRenderer class
-        mSampleAppRenderer.render();
+        mAppRenderer.render();
     }
     
 
@@ -105,7 +101,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
         // or after OpenGL ES context was lost (e.g. after onPause/onResume):
         vuforiaAppSession.onSurfaceCreated();
 
-        mSampleAppRenderer.onSurfaceCreated();
+        mAppRenderer.onSurfaceCreated();
     }
     
     
@@ -118,7 +114,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
         vuforiaAppSession.onSurfaceChanged(width, height);
 
         // RenderingPrimitives to be updated when some rendering change is done
-        mSampleAppRenderer.onConfigurationChanged();
+        mAppRenderer.onConfigurationChanged();
 
         initRendering();
 
@@ -127,6 +123,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
     // Function for initializing the renderer.
     private void initRendering()
     {
+
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, Vuforia.requiresAlpha() ? 0.0f
                 : 1.0f);
         
@@ -157,10 +154,10 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             "texSampler2D");
 
         if(!mModelsLoaded) {
-            mTeapot = new Teapot();
+            mObject3D = new Obj3D(mActivity.getBaseContext(), "harley", 1.0f);
 
             try {
-                mBuildingsModel = new SampleApplication3DModel();
+                mBuildingsModel = new Application3DModel();
                 mBuildingsModel.loadModel(mActivity.getResources().getAssets(),
                         "ImageTargets/Buildings.txt");
                 mModelsLoaded = true;
@@ -174,7 +171,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
     
     public void updateConfiguration()
     {
-        mSampleAppRenderer.onConfigurationChanged();
+        mAppRenderer.onConfigurationChanged();
     }
 
     // The render function called from SampleAppRendering by using RenderingPrimitives views.
@@ -183,7 +180,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
     public void renderFrame(State state, float[] projectionMatrix)
     {
         // Renders video background replacing Renderer.DrawVideoBackground()
-        mSampleAppRenderer.renderVideoBackground();
+        mAppRenderer.renderVideoBackground();
 
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
@@ -197,12 +194,17 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             GLES20.glFrontFace(GLES20.GL_CCW); // Back camera
 
         // Did we find any trackables this frame?
-        // TODO: here is where we can do stuff
+        // TODO: here is where we can do stuff on every frame
 
         for (int tIdx = 0; tIdx < state.getNumTrackableResults(); tIdx++) {
+
+
+
             TrackableResult result = state.getTrackableResult(tIdx);
             Trackable trackable = result.getTrackable();
             printUserData(trackable);
+
+            // camera direction from vuforia
             Matrix44F modelViewMatrix_Vuforia = Tool
                     .convertPose2GLMatrix(result.getPose());
             float[] modelViewMatrix = modelViewMatrix_Vuforia.getData();
@@ -216,10 +218,16 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             float[] modelViewProjection = new float[16];
 
             if (!mActivity.isExtendedTrackingActive()) {
+
+                OBJECT_SCALE_FLOAT = mObject3D.getScaleFactor();
+
                 Matrix.translateM(modelViewMatrix, 0, 0.0f, 0.0f,
                         OBJECT_SCALE_FLOAT);
+
                 Matrix.scaleM(modelViewMatrix, 0, OBJECT_SCALE_FLOAT,
                         OBJECT_SCALE_FLOAT, OBJECT_SCALE_FLOAT);
+
+
             } else {
                 Matrix.rotateM(modelViewMatrix, 0, 90.0f, 1.0f, 0, 0);
                 Matrix.scaleM(modelViewMatrix, 0, kBuildingScale,
@@ -231,10 +239,12 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             GLES20.glUseProgram(shaderProgramID);
 
             if (!mActivity.isExtendedTrackingActive()) {
+
                 GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT,
-                        false, 0, mTeapot.getVertices());
+                        false, 0, mObject3D.getVertices());
+
                 GLES20.glVertexAttribPointer(textureCoordHandle, 2,
-                        GLES20.GL_FLOAT, false, 0, mTeapot.getTexCoords());
+                        GLES20.GL_FLOAT, false, 0, mObject3D.getTexCoords());
 
                 GLES20.glEnableVertexAttribArray(vertexHandle);
                 GLES20.glEnableVertexAttribArray(textureCoordHandle);
@@ -251,8 +261,8 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
 
                 // finally draw the teapot
                 GLES20.glDrawElements(GLES20.GL_TRIANGLES,
-                        mTeapot.getNumObjectIndex(), GLES20.GL_UNSIGNED_SHORT,
-                        mTeapot.getIndices());
+                        mObject3D.getNumObjectIndex(), GLES20.GL_UNSIGNED_SHORT,
+                        mObject3D.getIndices());
 
                 // disable the enabled arrays
                 GLES20.glDisableVertexAttribArray(vertexHandle);
@@ -268,7 +278,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
                 GLES20.glEnableVertexAttribArray(textureCoordHandle);
 
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,
+                GLES20.glBindTexture(GLES20.GL_TEXTURE30,
                         mTextures.get(3).mTextureID[0]);
                 GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false,
                         modelViewProjection, 0);

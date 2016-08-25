@@ -42,23 +42,6 @@ public class RmShopActivity extends AppCompatActivity {
 
     }
 
-    private class ShopItem{
-        String title;
-        String type;
-        String price;
-        String rating;
-        String img;
-
-        public ShopItem(String title, String type, String price,String rating, String img) {
-            this.title = title;
-            this.type = type;
-            this.price = price;
-            this.rating = rating;
-            this.img = img;
-        }
-    }
-
-
     private class ShopItemAdapter extends ArrayAdapter<ShopItem> {
 
 

@@ -12,6 +12,7 @@ package com.realme_demo.realmeapp.vu.models;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.List;
 
 
 public abstract class MeshObject
@@ -47,21 +48,35 @@ public abstract class MeshObject
     }
     
     
-    protected Buffer fillBuffer(double[] array)
+    protected Buffer fillBuffer(List<Float> array)
     {
         // Convert to floats because OpenGL doesn't work on doubles, and manually
         // casting each input value would take too much time.
+        // Each float takes 4 bytes
+        ByteBuffer bb = ByteBuffer.allocateDirect(4 * array.size());
+        bb.order(ByteOrder.LITTLE_ENDIAN);
+        for (Float f : array)
+            bb.putFloat(f.floatValue());
+        bb.rewind();
+        
+        return bb;
+        
+    }
+
+
+    protected Buffer fillBuffer(double[] array)
+    {
         // Each float takes 4 bytes
         ByteBuffer bb = ByteBuffer.allocateDirect(4 * array.length);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         for (double d : array)
             bb.putFloat((float) d);
         bb.rewind();
-        
+
         return bb;
-        
+
     }
-    
+
     
     protected Buffer fillBuffer(float[] array)
     {
@@ -75,8 +90,21 @@ public abstract class MeshObject
         return bb;
         
     }
-    
-    
+
+
+    protected Buffer fillBuffer(List<Short> array, Boolean b)
+    {
+        // Each short takes 2 bytes
+        ByteBuffer bb = ByteBuffer.allocateDirect(2 * array.size());
+        bb.order(ByteOrder.LITTLE_ENDIAN);
+        for (Short s : array)
+            bb.putShort(s.shortValue());
+        bb.rewind();
+
+        return bb;
+
+    }
+
     protected Buffer fillBuffer(short[] array)
     {
         // Each short takes 2 bytes

@@ -111,7 +111,6 @@ public class AppRenderer {
             isRenderingInitialized = true;
         }
 
-
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         State state;
         state = TrackerManager.getInstance().getStateUpdater().updateState();

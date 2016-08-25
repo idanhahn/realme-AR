@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.realme_demo.realmeapp.R;
+import com.realme_demo.realmeapp.vu.models.Mickey;
+import com.realme_demo.realmeapp.vu.models.Teapot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,39 +33,20 @@ public class RmStylifyActivity extends AppCompatActivity{
         setContentView(R.layout.activity_stylify);
 
         mStylifyList = new ArrayList<>();
-        mStylifyList.add(new StylifyItem("model_d1","Model1", "Designer: Designer1", "stars5", "0", true));
-        mStylifyList.add(new StylifyItem("model_mickey","Model1", "Designer: Designer1", "stars5", "4.99$", false));
-        mStylifyList.add(new StylifyItem("model_d2","Model2", "Designer: Designer1", "stars5", "9.95$", false));
-        mStylifyList.add(new StylifyItem("model_d3","Model3", "Designer: Designer1", "stars5", "4.95$", false));
-        mStylifyList.add(new StylifyItem("model_d4","Model4", "Designer: Designer1", "stars5", "1.99$", false));
-        mStylifyList.add(new StylifyItem("model1","Model5", "Designer: Designer2", "stars5", "19.90$", false));
-        mStylifyList.add(new StylifyItem("model2","Model6", "Designer: Designer2", "stars5", "19.90$", false));
-        mStylifyList.add(new StylifyItem("model3","Model7", "Designer: Designer2", "stars5", "19.90$", false));
-        mStylifyList.add(new StylifyItem("model4","Model8", "Designer: Designer2", "stars5", "19.90$", false));
+        mStylifyList.add(new StylifyItem("model_d1","Model1", "Designer: Designer1", "stars5", "0", new Teapot(),true));
+        mStylifyList.add(new StylifyItem("model_mickey","Model1", "Designer: Designer1", "stars5", "4.99$", new Mickey(getBaseContext()), false));
+        mStylifyList.add(new StylifyItem("model_d2","Model2", "Designer: Designer1", "stars5", "9.95$", null, false));
+        mStylifyList.add(new StylifyItem("model_d3","Model3", "Designer: Designer1", "stars5", "4.95$", null,false));
+        mStylifyList.add(new StylifyItem("model_d4","Model4", "Designer: Designer1", "stars5", "1.99$", null,false));
+        mStylifyList.add(new StylifyItem("model1","Model5", "Designer: Designer2", "stars5", "19.90$", null,false));
+        mStylifyList.add(new StylifyItem("model2","Model6", "Designer: Designer2", "stars5", "19.90$", null,false));
+        mStylifyList.add(new StylifyItem("model3","Model7", "Designer: Designer2", "stars5", "19.90$", null,false));
+        mStylifyList.add(new StylifyItem("model4","Model8", "Designer: Designer2", "stars5", "19.90$", null,false));
 
         StylifyAdapter adapter = new StylifyAdapter(this, (ArrayList<StylifyItem>) this.mStylifyList);
         ListView stylifyList = (ListView) findViewById(R.id.stylify_list);
         stylifyList.setAdapter(adapter);
 
-    }
-
-    private class StylifyItem{
-
-        String model;
-        String title;
-        String designer;
-        String rating;
-        String price;
-        boolean acquired;
-
-        public StylifyItem(String model, String title, String designer, String rating, String price, boolean acquired) {
-            this.model = model;
-            this.title = title;
-            this.designer = designer;
-            this.rating = rating;
-            this.price = price;
-            this.acquired = acquired;
-        }
     }
 
     private class StylifyAdapter extends ArrayAdapter<StylifyItem> {

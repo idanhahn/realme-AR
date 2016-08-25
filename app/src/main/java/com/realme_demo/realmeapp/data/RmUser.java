@@ -2,6 +2,11 @@ package com.realme_demo.realmeapp.data;
 
 import android.graphics.Bitmap;
 
+import com.realme_demo.realmeapp.activities.rm_stylify.StylifyItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by idanhahn on 8/17/2016.
  */
@@ -20,6 +25,7 @@ public class RmUser {
         likeCount = 0;
         cameraCount = 0;
         videoCount = 0;
+        stylifyList = new ArrayList<>();
     }
 
 
@@ -32,6 +38,8 @@ public class RmUser {
     private int cameraCount;
     private int videoCount;
     private float ratingCount;
+
+    List<StylifyItem> stylifyList;
 
 
 
@@ -72,6 +80,8 @@ public class RmUser {
     public void addCamera(){ this.cameraCount++; }
     public void addVideo(){ this.videoCount++; }
 
+    public void addStilifyItem(StylifyItem stylifyItem){ stylifyList.add(stylifyItem); }
+    public List<StylifyItem> getStylifyList(){ return stylifyList; }
 
 
 }

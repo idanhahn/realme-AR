@@ -67,10 +67,12 @@
             android:layout_weight="1"
             android:text="Top Paid"
             android:textStyle="bold"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             />
     </LinearLayout>
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/stylify_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
