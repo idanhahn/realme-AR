@@ -154,7 +154,7 @@ public class RmCameraRenderer implements GLSurfaceView.Renderer, AppRendererCont
             "texSampler2D");
 
         if(!mModelsLoaded) {
-            mObject3D = new Obj3D(mActivity.getBaseContext(), "harley", 1.0f);
+            mObject3D = new Obj3D(mActivity.getBaseContext(), "mickey", .5f);
 
             try {
                 mBuildingsModel = new Application3DModel();
