@@ -96,7 +96,6 @@ public class ParseObj {
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
 
-
         String line = null;
         long tStart = System.currentTimeMillis();
         while (true) {
@@ -115,7 +114,7 @@ public class ParseObj {
 
             // NOTE: we don't check for the space after the char
             // because sometimes it's not there - most notably in the
-            // grouupname, we seem to get a lot of times where we have
+            // groupname, we seem to get a lot of times where we have
             // "g\n", i.e. setting the group name to blank (or
             // default?)
             if (line.startsWith("#")) // comment

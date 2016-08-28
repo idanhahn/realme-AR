@@ -628,4 +628,11 @@
     <string name="ACCOUNT">ACCOUNT</string>
     <string name="temp">TEMP</string>
     <string name="stylify">STYLIFY!</string>
+    <string name="user1">User1</string>
+    <string name="user2">User2</string>
+    <string name="ChoiceText" />
+    <string name="Sound" />
+    <string name="Vibration" />
+    <string name="Silent" />
+    <string name="Choose" />
 </resources>

@@ -1,10 +1,13 @@
 package com.realme_demo.realmeapp.data;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.realme_demo.realmeapp.activities.rm_stylify.StylifyItem;
+import com.realme_demo.realmeapp.vu.models.Obj3D;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,13 +24,20 @@ public class RmUser {
     }
 
     private RmUser() {
+        // default username
+        mUserName = "USER1";
+
         mUserSet = false;
         likeCount = 0;
         cameraCount = 0;
         videoCount = 0;
         stylifyList = new ArrayList<>();
+        models = new HashMap<>();
+
+
     }
 
+    private Context c;
 
     private Boolean mUserSet;
     private String mUserName;
@@ -41,12 +51,18 @@ public class RmUser {
 
     List<StylifyItem> stylifyList;
 
+    HashMap<String,Obj3D> models;
 
+
+    public void init(Context c){
+        this.c = c;
+        models.put("mickey",new Obj3D(c,"mickey",0.5f));
+        models.put("harley",new Obj3D(c,"harley",200.0f));
+    }
 
     public void setUser(){
         mUserSet = true;
     }
-
 
     public String getUserName() {
         return mUserName;
@@ -83,5 +99,27 @@ public class RmUser {
     public void addStilifyItem(StylifyItem stylifyItem){ stylifyList.add(stylifyItem); }
     public List<StylifyItem> getStylifyList(){ return stylifyList; }
 
+
+    public Obj3D getModel(String key){
+        return models.get(key);
+    }
+
+
+    public Obj3D getCurModel(){
+        String key = null;
+        switch (mUserName){
+            case "USER1":
+                key = "mickey";
+                break;
+            case "USER2":
+                key = "harley";
+                break;
+            default:
+                key = "mickey";
+                break;
+        }
+
+        return getModel(key);
+    }
 
 }

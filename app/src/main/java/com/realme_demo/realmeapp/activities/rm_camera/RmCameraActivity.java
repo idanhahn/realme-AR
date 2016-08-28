@@ -15,6 +15,7 @@ import java.util.Vector;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -24,6 +25,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -40,8 +43,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.realme_demo.realmeapp.R;
+import com.realme_demo.realmeapp.activities.rm_demo_menu.RmDemoMenuActivity;
 import com.realme_demo.realmeapp.activities.rm_menu.RmMenuActivity;
 import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
+import com.realme_demo.realmeapp.data.RmUser;
 import com.realme_demo.realmeapp.fontAwesome.DrawableAwesome;
 import com.realme_demo.realmeapp.vu.VuControl;
 import com.realme_demo.realmeapp.vu.VuException;
@@ -80,7 +85,10 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
     
     // The textures we will use for rendering:
     private Vector<Texture> mTextures;
-    
+
+    private RmUser user = RmUser.getInstance();
+
+
     private boolean mSwitchDatasetAsap = false;
     private boolean mFlash = false;
     private boolean mContAutofocus = false;
@@ -108,6 +116,9 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
     // realMe menu
     private Button mBtnMenu;
 
+
+    private ImageView mIVStatus;
+
     
     // Called when the activity first starts or the user navigates back to an
     // activity.
@@ -120,6 +131,9 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
         vuforiaAppSession = new VuSession(this);
         
         startLoadingAnimation();
+
+        user.init(this);
+
 
         //mDatasetStrings.add("StonesAndChips.xml");
         //mDatasetStrings.add("Tarmac.xml");
@@ -193,16 +207,14 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
             public void onClick(View view) {
 
                 Log.d(LOGTAG,"click menu");
-
-
-
-                Intent intent = new Intent(RmCameraActivity.this, RmMenuActivity.class);
+                Intent intent = new Intent(RmCameraActivity.this, RmDemoMenuActivity.class);
                 startActivity(intent);
 
             }
         });
 
 
+        mIVStatus = (ImageView) findViewById(R.id.camera_overlay_status);
 
     }
     
@@ -212,8 +224,7 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
     {
         // Used to set autofocus one second after a manual focus is triggered
         private final Handler autofocusHandler = new Handler();
-        
-        
+
         @Override
         public boolean onDown(MotionEvent e)
         {
@@ -239,6 +250,21 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
             }, 1000L);
             
             return true;
+        }
+
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            super.onLongPress(e);
+
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(500);
+            switchUser();
+
+            //mRenderer.restartRender();
+
+
         }
     }
     
@@ -694,4 +720,19 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
     {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
+    // user related functions
+    private void switchUser() {
+
+        if (user.getUserName().equals("USER1")){
+            user.setUserName("USER2");
+            mIVStatus.setImageResource(R.drawable.circle_blue);
+        } else {
+            user.setUserName("USER1");
+            mIVStatus.setImageResource(R.drawable.circle_white);
+        }
+
+    }
+
 }

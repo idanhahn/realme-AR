@@ -97,6 +97,15 @@
                 android:text="@string/fa_low_vision"
                 android:textSize="50sp" />
 
+            <ImageView
+                android:id="@+id/camera_overlay_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/circle_red"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                />
+
 
         </android.support.v7.widget.Toolbar>
     </LinearLayout>
