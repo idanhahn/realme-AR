@@ -295,9 +295,6 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
             getAssets()));
         mTextures.add(Texture.loadTextureFromApk( "capsule0.jpg", getAssets()) );
 
-        mTextures.
-
-
     }
     
     
