@@ -338,6 +338,9 @@ public class ParseObj {
     private void processFace(String line) {
         String[] valuesArr = line.split(" ");
 
+        // handle more than 3 point vertexes here
+
+
         if (valuesArr.length > 4){
             for (int i = 1; i < 4; i++) {
                 String[] values = valuesArr[i].split("/");

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="olympic_logo2" size="120.000000 120.000000" />
+    <ImageTarget name="olympic_logo1" size="120.000000 60.000000" />
+    <ImageTarget name="nike_logo4" size="120.000000 62.679955" />
+    <ImageTarget name="nike_logo1" size="120.000000 90.000000" />
     <ImageTarget name="AR_Marker_PNG_24" size="90.000000 90.000000" />
     <ImageTarget name="adidas" size="120.000000 81.641937" />
   </Tracking>
