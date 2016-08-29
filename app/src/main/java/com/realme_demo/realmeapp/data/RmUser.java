@@ -2,6 +2,7 @@ package com.realme_demo.realmeapp.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.realme_demo.realmeapp.activities.rm_stylify.StylifyItem;
 import com.realme_demo.realmeapp.vu.models.Obj3D;
@@ -17,6 +18,9 @@ import java.util.List;
 // hold current user
 
 public class RmUser {
+
+    private final static String TAG = "RmUser";
+
     private static RmUser ourInstance = new RmUser();
 
     public static RmUser getInstance() {
@@ -54,10 +58,9 @@ public class RmUser {
     HashMap<String,Obj3D> models;
 
 
-    public void init(Context c){
+    public void init(Context c, RmUserCallback cb){
         this.c = c;
-        models.put("mickey",new Obj3D(c,"mickey",0.5f));
-        models.put("harley",new Obj3D(c,"harley",200.0f));
+        loadInBackground(c,cb);
     }
 
     public void setUser(){
@@ -120,6 +123,32 @@ public class RmUser {
         }
 
         return getModel(key);
+    }
+
+
+
+    public void loadInBackground(Context c, RmUserCallback cb){
+
+        Runnable pT = new LoadThread(c, cb);
+        new Thread(pT).start();
+    }
+
+    private class LoadThread implements Runnable {
+
+        Context c;
+        RmUserCallback cb;
+
+        public LoadThread(Context c, RmUserCallback cb) {
+            this.c = c;
+            this.cb = cb;
+        }
+
+        public void run() {
+            models.put("mickey",new Obj3D(c,"mickey",0.5f));
+            models.put("harley",new Obj3D(c,"harley",200.0f));
+            Log.d(TAG,"done IO");
+            cb.doneIO();
+        }
     }
 
 }

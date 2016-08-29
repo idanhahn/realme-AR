@@ -47,6 +47,7 @@ import com.realme_demo.realmeapp.activities.rm_demo_menu.RmDemoMenuActivity;
 import com.realme_demo.realmeapp.activities.rm_menu.RmMenuActivity;
 import com.realme_demo.realmeapp.activities.rm_shop.RmShopActivity;
 import com.realme_demo.realmeapp.data.RmUser;
+import com.realme_demo.realmeapp.data.RmUserCallback;
 import com.realme_demo.realmeapp.fontAwesome.DrawableAwesome;
 import com.realme_demo.realmeapp.vu.VuControl;
 import com.realme_demo.realmeapp.vu.VuException;
@@ -132,7 +133,20 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
         
         startLoadingAnimation();
 
-        user.init(this);
+        user.init(this, new RmUserCallback() {
+            @Override
+            public void doneIO() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        doneLoadingModels();
+
+                    }
+                });
+
+            }
+        });
 
 
         //mDatasetStrings.add("StonesAndChips.xml");
@@ -217,7 +231,7 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
         mIVStatus = (ImageView) findViewById(R.id.camera_overlay_status);
 
     }
-    
+
     // Process Single Tap event to trigger autofocus
     private class GestureListener extends
         GestureDetector.SimpleOnGestureListener
@@ -262,9 +276,6 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
             v.vibrate(500);
             switchUser();
 
-            //mRenderer.restartRender();
-
-
         }
     }
     
@@ -283,6 +294,10 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
         mTextures.add(Texture.loadTextureFromApk("ImageTargets/Buildings.jpeg",
             getAssets()));
         mTextures.add(Texture.loadTextureFromApk( "capsule0.jpg", getAssets()) );
+
+        mTextures.
+
+
     }
     
     
@@ -734,5 +749,12 @@ public class RmCameraActivity extends AppCompatActivity implements VuControl
         }
 
     }
+
+    private void doneLoadingModels(){
+        Log.d(LOGTAG, "setting user1");
+        mIVStatus.setImageResource(R.drawable.circle_white);
+    }
+
+
 
 }

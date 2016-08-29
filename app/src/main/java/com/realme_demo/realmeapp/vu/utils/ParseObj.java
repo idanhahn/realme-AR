@@ -98,6 +98,7 @@ public class ParseObj {
 
         String line = null;
         long tStart = System.currentTimeMillis();
+        Log.d(TAG, "start loading model " + objFilename);
         while (true) {
 
             line = br.readLine();
@@ -129,11 +130,11 @@ public class ParseObj {
             } else if (line.startsWith(OBJ_FACE)) {
                 processFace(line);
             } else {
-                Log.d(TAG, "line " + lineCount + " unknown line |" + line + "|");
             }
             lineCount++;
         }
         br.close();
+        Log.d(TAG, "done loading model " + objFilename);
         long tEnd = System.currentTimeMillis();
         double tProcess = (tEnd - tStart) / 1000.0;
         Log.d(TAG, "Loaded " + lineCount + " lines during " + tProcess + " seconds");

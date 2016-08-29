@@ -26,7 +26,19 @@ public class Obj3D extends MeshObject{
     public Obj3D(Context context, String model, float scaleFactor)
     {
         this.scaleFactor = scaleFactor;
-        parseInBackground(context, model);
+        ParseObj po = null;
+        try {
+            po = new ParseObj(context, model);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mVertBuff = fillBuffer(po.getVerts());
+        verticesNumber = po.getVerts().size() / 3;
+        mTexCoordBuff = fillBuffer(po.getTexCoords());
+        mNormBuff = fillBuffer(po.getNorms());
+        mIndBuff = fillBuffer(po.getIndices(), true);
+        indicesNumber = po.getIndices().size();
     }
 
     public int getNumObjectIndex()
@@ -75,46 +87,6 @@ public class Obj3D extends MeshObject{
     public void setScaleFactor(float scaleFactor) {
         this.scaleFactor = scaleFactor;
     }
-
-
-    public void parseInBackground(Context c, String model){
-
-        Runnable pT = new ParseThread(c,model);
-        new Thread(pT).start();
-    }
-
-
-
-
-    private class ParseThread implements Runnable {
-
-        Context c;
-        String model;
-
-        public ParseThread(Context c, String model) {
-            this.c = c;
-            this.model = model;
-
-        }
-
-        public void run() {
-            ParseObj po = null;
-            try {
-                po = new ParseObj(c, model);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            mVertBuff = fillBuffer(po.getVerts());
-            verticesNumber = po.getVerts().size() / 3;
-            mTexCoordBuff = fillBuffer(po.getTexCoords());
-            mNormBuff = fillBuffer(po.getNorms());
-            mIndBuff = fillBuffer(po.getIndices(), true);
-            indicesNumber = po.getIndices().size();
-
-        }
-    }
-
 
 
 }
